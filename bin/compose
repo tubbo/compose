@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+# Helper function for using docker-compose in multiple environments.
+
+compose() {
+  environment=${COMPOSE_ENV:-development}
+  arguments=$*
+
+  case "$1" in
+    development|test|production|deploy)
+      environment=$1
+      shift
+    ;;
+  esac
+
+  if [ "$environment" = "deploy" ]; then
+    stack=$(basename $PWD)
+    docker stack deploy -c docker-compose.yml -c docker-compose.production.yml $@ $stack
+  else
+    docker-compose -f docker-compose.yml -f docker-compose.$environment.yml $@
+  fi
+
+  return $?
+}
