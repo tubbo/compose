@@ -60,12 +60,24 @@ $ sudo make install
 This will install the `compose` script to `/usr/local/bin`. You can
 change this by prepending `PREFIX=/some/custom/location`.
 
-## Development
-
-To release a new version, update the `VERSION` var in Make, then run:
+You can uninstall it like so:
 
 ```bash
-$ make release
+$ sudo make uninstall
+```
+
+## Development
+
+To release a new version, update the `VERSION` var in the Makefile, then run:
+
+```bash
+$ make dist
+```
+
+To clean out old tarballs:
+
+```bash
+$ make clean # or distclean
 ```
 
 [docker-compose]: https://docs.docker.com/compose/
