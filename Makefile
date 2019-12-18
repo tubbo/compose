@@ -1,4 +1,4 @@
-VERSION?=0.0.1
+VERSION?=0.0.2
 PREFIX?=/usr/local
 PKG=pkg/compose-$(VERSION).tar.gz
 SIG=$(PKG).asc
@@ -29,8 +29,6 @@ uninstall:
 dist: $(SIG)
 	@git add $(SIG)
 	@git commit -m "Release $(VERSION)" $(SIG)
-	@git tag $(VERSION) -m "Release $(VERSION)"
-	@git push origin --tags
 	@git push origin master
 	@hub release create -a $(PKG) -m "Release v$(VERSION)" $(VERSION)
 .PHONY: dist
